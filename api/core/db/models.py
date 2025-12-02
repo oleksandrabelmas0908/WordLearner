@@ -27,12 +27,12 @@ class Collection(Base):
     __tablename__ = "collections"
 
     name: Mapped[str] = mapped_column(unique=True, index=True)
-    description: Mapped[str] = mapped_column(nullable=True)
+    description: Mapped[str] = mapped_column(nullable=True, default="")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.now(), nullable=False)
 
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"), nullable=False)
 
-    words: Mapped[list["Word"]] = relationship(back_populates="collection")
+    words: Mapped[list["Word"]] = relationship(lazy='selectin')
 
 
 class Word(Base):
@@ -43,8 +43,8 @@ class Word(Base):
 
     collection_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("collections.id"), nullable=False)
 
-    definitions: Mapped[list["Definition"]] = relationship() 
-    translations: Mapped[list["Translation"]] = relationship()
+    definitions: Mapped[list["Definition"]] = relationship(lazy='selectin')
+    translations: Mapped[list["Translation"]] = relationship(lazy='selectin')
 
 
 class Definition(Base):

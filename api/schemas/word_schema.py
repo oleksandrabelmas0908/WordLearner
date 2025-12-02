@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
 from datetime import datetime
+from uuid import UUID
 
 from .definition_schema import DefinitionSchema
 from .translation_schema import TranslationSchema
@@ -8,14 +9,14 @@ from .translation_schema import TranslationSchema
 
 class WordCreateSchema(BaseModel):
     term: str
-    collection_id: str
+    collection_id: UUID
 
 
 class WordSchema(WordCreateSchema):
-    id: str
+    id: UUID
     created_at: datetime
     definitions: list["DefinitionSchema"] = []
     translations: list["TranslationSchema"] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True

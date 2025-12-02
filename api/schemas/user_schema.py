@@ -1,6 +1,7 @@
 from pydantic import BaseModel 
 
 from datetime import datetime
+from uuid import UUID
 
 
 class UserCreateSchema(BaseModel):
@@ -9,8 +10,8 @@ class UserCreateSchema(BaseModel):
 
 
 class UserSchema(UserCreateSchema):
-    id: str
+    id: UUID
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

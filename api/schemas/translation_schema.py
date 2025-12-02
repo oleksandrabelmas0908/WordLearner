@@ -1,13 +1,15 @@
 from pydantic import BaseModel
 
+from uuid import UUID
+
 
 class TranslationCreateSchema(BaseModel):
     language: str
     text: str
-    word_id: str
+    word_id: UUID
 
 class TranslationSchema(TranslationCreateSchema):
-    id: str
+    id: UUID
 
     class Config:
-        orm_mode = True
+        from_attributes = True

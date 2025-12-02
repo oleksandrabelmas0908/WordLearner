@@ -1,14 +1,16 @@
 from pydantic import BaseModel
 
+from uuid import UUID
+
 
 class DefinitionCreateSchema(BaseModel):
     text: str
     example: str | None = None
-    word_id: str
+    word_id: UUID
 
 
 class DefinitionSchema(DefinitionCreateSchema):
-    id: str
+    id: UUID
 
     class Config:
-        orm_mode = True
+        from_attributes = True
