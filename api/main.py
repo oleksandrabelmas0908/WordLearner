@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 import logging
 
 from core.db import create_db_tables
-from routes import user_router, collection_router
+from routes import user_router, collection_router, word_router
 
 
 logging.basicConfig(level=logging.INFO)
@@ -22,6 +22,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.include_router(user_router)
 app.include_router(collection_router)
+app.include_router(word_router)
 
 
 if __name__ == "__main__":

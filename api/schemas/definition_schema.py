@@ -14,3 +14,14 @@ class DefinitionSchema(DefinitionCreateSchema):
 
     class Config:
         from_attributes = True
+
+
+class DefinitionAIOutputSchema(BaseModel):
+    definition: str
+    example: str
+    synonyms: list[str] = []
+
+
+class DefinitionsListSchema(BaseModel):
+    """Wrapper for list of definitions (required for structured output)"""
+    definitions: list[DefinitionAIOutputSchema]
